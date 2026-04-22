@@ -1,0 +1,91 @@
+.elements {
+  max-width: 880px;
+  display: grid;
+  padding-top: 50px;
+  gap: 20px 17px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+.elements__card {
+  width: 282px;
+  height: 361px;
+  border-radius: 10px;
+  background-color: #fff;
+  display: flex;
+  flex-flow: column nowrap;
+  position: relative;
+}
+.elements__image {
+  width: 282px;
+  height: 282px;
+  object-fit: fill;
+  border-radius: 10px 10px 0 0;
+}
+.elements__image:hover {
+  cursor: pointer;
+  filter: brightness(0.5);
+}
+.elements__info {
+  color: #000;
+  padding-top: 25px;
+  width: 246px;
+  margin: 0 auto 0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.elements__location {
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.elements__like {
+  background-image: url(../images/Like.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #fff;
+  border: none;
+  margin-left: auto;
+  width: 21px;
+  height: 19px;
+  display: block;
+}
+.elements__like:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+.elements__like-enabled {
+  background-image: url(../images/Like-enabled.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #fff;
+  border: none;
+  margin-left: auto;
+  width: 21px;
+  height: 19px;
+}
+.elements__trash {
+  background-image: url(../images/Trash.png);
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  width: 18px;
+  height: 19px;
+}
+.elements__trash:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+@media (width < 880px) {
+  .elements {
+    max-width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    padding-top: 36px;
+    gap: 20px;
+  }
+}

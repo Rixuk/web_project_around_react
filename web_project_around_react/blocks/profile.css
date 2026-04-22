@@ -1,0 +1,128 @@
+.profile {
+  max-width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  padding-top: 40px;
+}
+.profile__picture {
+  width: 120px;
+  height: 120px;
+  margin-right: 30px;
+  display: flex;
+  position: relative;
+}
+.profile__avatar {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.profile__edit-icon-container {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+.profile__edit-icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.9;
+}
+.profile__picture:hover .profile__edit-icon-container {
+  background-color: #000;
+  cursor: pointer;
+  opacity: .8;
+}
+.profile__info {
+  width: 60%;
+}
+.profile__name-and-button {
+  margin: 0;
+  display: flex;
+  gap: 18px;
+  margin-top: 22px;
+}
+.profile__name {
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.profile__button {
+  background-image: url("../images/Edit-Button.png");
+  background-position: center;
+  align-self: center;
+  border: 1px solid white;
+  background-color: black;
+  width: 24px;
+  height: 24px;
+}
+.profile__button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+.profile__profession {
+  font-size: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 16px 0 21px;
+}
+.profile__add {
+  margin-left: auto;
+  align-self: center;
+}
+.profile__add-button {
+  padding: 0;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 2px;
+  width: 150px;
+  height: 50px;
+  font-size: 36px;
+}
+.profile__add-button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+@media (width < 880px) {
+  .profile {
+    flex-flow: column nowrap;
+    padding-top: 42px;
+    align-items: center;
+  }
+  .profile__picture {
+    margin: 0;
+  }
+  .profile__info {
+    width: 100%;
+    margin: 30px 0 36px;
+  }
+  .profile__name-and-button {
+    margin: 0;
+    gap: 0;
+    justify-content: space-around;
+  }
+  .profile__name {
+    font-size: 22px;
+  }
+  .profile__profession {
+    font-size: 14px;
+    margin: 14px 0 0;
+    text-align: center;
+  }
+  .profile__add {
+    margin: 0;
+    width: 100%;
+  }
+  .profile__add-button {
+    width: 100%;
+  }
+}
