@@ -5,21 +5,7 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Página que nos permite ver lugares de Estados Unidos"
-    />
-    <meta name="keywords" content="locations, project" />
-    <meta name="author" content="Rixuk" />
-    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="../pages/index.css" />
-    <title>Around the U.S.</title>
-  </head>
+<>
   <body>
     <div class="page">
       <header class="header">
@@ -188,8 +174,7 @@ function App() {
 
     <script src="../scripts/index.js" type="module"></script>
   </body>
-</html>
-    </>
+</>
   )
 }
 
