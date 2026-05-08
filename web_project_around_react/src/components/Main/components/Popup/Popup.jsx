@@ -4,7 +4,7 @@ export default function Popup(props) {
 
   return (
     <div className="popups">
-    <div className="popup__overlay"></div>
+      <div className="popup__overlay"></div>
       <div className="popup__window">
         <button
           aria-label="Close modal"
