@@ -11,7 +11,7 @@ export default function Popup(props) {
           className="popups__close"
           type="button"
         />
-        <h3 className="popup__title">{title}</h3>
+        <h3 className="popup__title popup__style">{title}</h3>
         {children}
       </div>
     </div>
