@@ -1,6 +1,23 @@
 import vector from "../../../images/Vector.png"
 
+import { useState } from "react";
+
+import Popup from "./components/Popup/Popup";
+import NewCard from "./components/Popup/form/NewCard/NewCard";
+
 export default function Main () {
+  const [popup, setPopup] = useState(null);
+  
+  const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
+  
+  function handleOpenPopup(popup) {
+    setPopup(popup);
+  }
+
+  function handleClosePopup() {
+    setPopup(null);
+  }
+
     return (
         <main className="content">
         <section className="profile">
@@ -18,7 +35,7 @@ export default function Main () {
             <p className="profile__profession" id="profile__profession"></p>
           </div>
           <div className="profile__add">
-            <button className="profile__add-button">+</button>
+            <button className="profile__add-button" type="button" onClick={() => handleOpenPopup(newCardPopup)}>+</button>
           </div>
           <div className="popups" id="popup-profile">
             <div className="popup__overlay"></div>
@@ -62,46 +79,6 @@ export default function Main () {
               <button className="popups__close"></button>
             </div>
           </div>
-          <div className="popups" id="popup-cards">
-            <div className="popup__overlay"></div>
-            <div className="popup__window">
-              <h2 className="popup__title popup__style">Nuevo lugar</h2>
-              <form className="popup__form" noValidate>
-                <fieldset className="popup__fieldset">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Título"
-                    className="popup__name popup__style form__inputs"
-                    id="new-cards__name"
-                    required
-                    minLength="2"
-                    maxLength="30"
-                  />
-                  <span
-                    className="form__inputs-error_active"
-                    id="new-cards__name-error"
-                  ></span>
-                  <input
-                    type="url"
-                    name="link"
-                    placeholder="Enlace a la imagen"
-                    className="popup__aboutme popup__style form__inputs"
-                    id="new-cards__link"
-                    required
-                  />
-                  <span
-                    className="form__inputs-error_active"
-                    id="new-cards__link-error"
-                  ></span>
-                  <button type="submit" className="popup__save popup__style">
-                    Crear
-                  </button>
-                </fieldset>
-              </form>
-              <button className="popups__close"></button>
-            </div>
-          </div>
           <div className="popups" id="popup-confirmation">
             <div className="popup__overlay"></div>
             <div className="popup__window">
@@ -135,6 +112,11 @@ export default function Main () {
           </div>
         </section>
         <section className="elements"></section>
+        {popup && (
+        <Popup onClose={handleClosePopup} title={popup.title}>
+          {popup.children}
+        </Popup>
+      )}
       </main>
     );
 }

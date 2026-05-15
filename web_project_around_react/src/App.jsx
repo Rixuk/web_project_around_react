@@ -22,14 +22,6 @@ function App() {
       </div>
     </template>
 
-    <div className="popups" id="popup-image">
-      <div className="popup__overlay"></div>
-      <div id="popup-images__container">
-        <img id="popup-images__image" src=" " alt="" />
-        <button className="popups__close"></button>
-        <p id="popup-images__location"></p>
-      </div>
-    </div>
 </>
   )
 }
