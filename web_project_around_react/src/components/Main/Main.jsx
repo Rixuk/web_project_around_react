@@ -38,7 +38,6 @@ export default function Main () {
           <div className="profile__add">
             <button className="profile__add-button" type="button" onClick = {() => handleOpenPopup(newCardPopup)}>+</button>
           </div>
-
         </section>
         <section className="elements"></section>
 

@@ -3,12 +3,11 @@ export default function Popup(props) {
   const { onClose, title, children } = props;
 
   return (
-    <div className="popups">
-      <div className="popup__overlay"></div>
+    <div className="popup__overlay">
       <div className="popup__window">
         <button
           aria-label="Close modal"
-          className="popups__close"
+          className="popup__close"
           type="button"
           onClick={onClose}
         />
