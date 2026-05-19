@@ -21,10 +21,6 @@ function App() {
         </div>
       </div>
     </template>
-<<<<<<< HEAD
-=======
-
->>>>>>> bc1aba7976299a975426faaf7bf990649bb1f51a
 </>
   )
 }
