@@ -1,15 +1,39 @@
 import vector from "../../../images/Vector.png"
 import Popup from "./components/Popup/Popup";
 import NewCard from "./components/Popup/form/NewCard/NewCard";
+import EditProfile from "./components/Popup/form/EditProfile/EditProfile";
+import EditAvatar from "./components/Popup/form/EditAvatar/EditAvatar";
+import Card from "./components/Card/Card";
+import ImagePopup from "./components/Card/ImagePopup/ImagePopup";
 
 import { useState } from "react";
 
+const cards = [
+  {
+    isLiked: false,
+    _id: '5d1f0611d321eb4bdcd707dd',
+    name: 'Yosemite Valley',
+    link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg',
+    owner: '5d1f0611d321eb4bdcd707dd',
+    createdAt: '2019-07-05T08:10:57.741Z',
+  },
+  {
+    isLiked: false,
+    _id: '5d1f064ed321eb4bdcd707de',
+    name: 'Lake Louise',
+    link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg',
+    owner: '5d1f0611d321eb4bdcd707dd',
+    createdAt: '2019-07-05T08:11:58.324Z',
+  },
+];
+
 export default function Main () {
   const [popup, setPopup] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const newCardPopup = { title: "Nuevo lugar", children:  <NewCard />};
-
-  
+  const editProfilePopup = { title: "Editar perfil", children: <EditProfile /> };
+  const editAvatarPopup = { title: "Editar avatar", children: <EditAvatar /> };
   
   function handleOpenPopup(popup) {
     setPopup(popup);
@@ -19,19 +43,31 @@ export default function Main () {
     setPopup(null);
   }
 
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+
+  function handleCloseImagePopup() {
+    setSelectedCard(null);
+  }
+
     return (
         <main className="content">
         <section className="profile">
           <div className="profile__picture">
             <img src=" " alt="avatar image" className="profile__avatar"/>
             <div className="profile__edit-icon-container">
-              <img src={vector} alt="edit icon" className="profile__edit-icon"/>
+              <button className="profile__edit-button" type="button" onClick={() => handleOpenPopup(editAvatarPopup)}>
+                <img src={vector} alt="edit icon" className="profile__edit-icon"/>
+              </button>
             </div>
           </div>
           <div className="profile__info">
             <div className="profile__name-and-button">
               <h2 className="profile__name" id="profile__name"></h2>
-              <button className="profile__button"></button>
+              <button className="profile__edit-button" type="button" onClick={() => handleOpenPopup(editProfilePopup)}>
+                <img src={vector} alt="edit icon" className="profile__edit-icon"/>
+              </button>
             </div>
             <p className="profile__profession" id="profile__profession"></p>
           </div>
@@ -39,14 +75,20 @@ export default function Main () {
             <button className="profile__add-button" type="button" onClick = {() => handleOpenPopup(newCardPopup)}>+</button>
           </div>
         </section>
-        <section className="elements"></section>
-
-        {/* Duda en el código de abajo necesito una mejor explicación */}
+        <ul className="elements">
+          {cards.map((card) => (
+            <Card key={card._id} card={card} onCardClick={handleCardClick} />
+          ))}
+        </ul>
         
         {popup && (
           <Popup onClose={handleClosePopup} title={popup.title}>
             {popup.children}
           </Popup>
+        )}
+
+        {selectedCard && (
+          <ImagePopup onClose={handleCloseImagePopup} card={selectedCard} />
         )}
       </main>
     );

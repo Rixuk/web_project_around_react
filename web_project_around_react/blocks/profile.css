@@ -29,10 +29,19 @@
   justify-content: center;
   opacity: 0;
 }
+.profile__edit-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
 .profile__edit-icon {
   width: 24px;
   height: 24px;
   opacity: 0.9;
+}
+.profile__edit-icon:hover {
+  opacity: 0.6;
 }
 .profile__picture:hover .profile__edit-icon-container {
   background-color: #000;

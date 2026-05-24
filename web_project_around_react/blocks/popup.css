@@ -77,19 +77,27 @@
   cursor: pointer;
   opacity: 0.5;
 }
-#popup-images__container {
+.popup-images__container {
   cursor: auto;
   position: relative;
   max-width: 75vw;
   max-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-#popup-images__image {
-  width: 100%;
-  height: 100%;
+.popup-images__image {
+  max-width: 75vw;
+  max-height: 65vh;
+  object-fit: contain;
+  border-radius: 4px;
 }
-#popup-images__location {
+.popup-images__location {
   color: #fff;
   font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  margin: 10px 0 0;
+  align-self: flex-start;
 }
 .form__inputs{
   margin-top: 30px;

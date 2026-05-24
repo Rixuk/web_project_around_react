@@ -12,14 +12,14 @@ function App() {
     </div>
 
     <template id="elements__template">
-      <div className="elements__card">
+      <li className="elements__card">
         <img className="elements__image" src=" " alt="" />
         <img className="elements__trash" src="../images/Trash.png" alt="" />
         <div className="elements__info">
           <h2 className="elements__location"></h2>
           <button className="elements__like"></button>
         </div>
-      </div>
+      </li>
     </template>
 </>
   )
