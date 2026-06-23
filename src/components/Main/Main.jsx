@@ -5,32 +5,20 @@ import EditProfile from "./components/Popup/form/EditProfile/EditProfile";
 import EditAvatar from "./components/Popup/form/EditAvatar/EditAvatar";
 import Card from "./components/Card/Card";
 import ImagePopup from "./components/Card/ImagePopup/ImagePopup";
+
 import {api} from "../../utils/api";
 
-import { useState } from "react";
-
-const cards = [
-  {
-    isLiked: false,
-    _id: '5d1f0611d321eb4bdcd707dd',
-    name: 'Yosemite Valley',
-    link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg',
-    owner: '5d1f0611d321eb4bdcd707dd',
-    createdAt: '2019-07-05T08:10:57.741Z',
-  },
-  {
-    isLiked: false,
-    _id: '5d1f064ed321eb4bdcd707de',
-    name: 'Lake Louise',
-    link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg',
-    owner: '5d1f0611d321eb4bdcd707dd',
-    createdAt: '2019-07-05T08:11:58.324Z',
-  },
-];
+import { useState, useEffect } from "react";
 
 export default function Main () {
+
+  /*---------------- Variables de estado ----------------*/
   const [popup, setPopup] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [cards, setCards] = useState([]);
+
+  /*---------------- Efectos ----------------*/
+  
 
   const newCardPopup = { title: "Nuevo lugar", children:  <NewCard />};
   const editProfilePopup = { title: "Editar perfil", children: <EditProfile /> };
