@@ -1,4 +1,4 @@
-export default class Api {
+class Api {
   constructor(token, baseUrl) {
     this.url = baseUrl;
     this.token = token;
@@ -89,3 +89,8 @@ export default class Api {
     .catch(this._checkError);
   }
 }
+
+export const api = new Api(
+  "98ceb637-6af7-4ed6-84f7-0abd0d26da19",
+  "https://around-api.es.tripleten-services.com/v1"
+);

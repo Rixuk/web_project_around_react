@@ -5,6 +5,7 @@ import EditProfile from "./components/Popup/form/EditProfile/EditProfile";
 import EditAvatar from "./components/Popup/form/EditAvatar/EditAvatar";
 import Card from "./components/Card/Card";
 import ImagePopup from "./components/Card/ImagePopup/ImagePopup";
+import {api} from "../../utils/api";
 
 import { useState } from "react";
 
