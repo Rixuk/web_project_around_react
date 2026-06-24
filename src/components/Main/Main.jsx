@@ -8,17 +8,28 @@ import ImagePopup from "./components/Card/ImagePopup/ImagePopup";
 
 import {api} from "../../utils/api";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext} from "react";
+
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function Main () {
+  
+  const currentUser = useContext(CurrentUserContext);
 
   /*---------------- Variables de estado ----------------*/
   const [popup, setPopup] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
+
   const [cards, setCards] = useState([]);
 
   /*---------------- Efectos ----------------*/
-  
+  useEffect(() => {
+    api.getInitialCards()
+    .then((cardsData) => {
+      setCards(cardsData);
+    })
+    .catch((err) => console.log(err));
+  }, []);
 
   const newCardPopup = { title: "Nuevo lugar", children:  <NewCard />};
   const editProfilePopup = { title: "Editar perfil", children: <EditProfile /> };
@@ -44,7 +55,7 @@ export default function Main () {
         <main className="content">
         <section className="profile">
           <div className="profile__picture">
-            <img src=" " alt="avatar image" className="profile__avatar"/>
+            <img src={currentUser?.avatar || " "} alt="avatar image" className="profile__avatar"/>
             <div className="profile__edit-icon-container">
               <button className="profile__edit-button" type="button" onClick={() => handleOpenPopup(editAvatarPopup)}>
                 <img src={vector} alt="edit icon" className="profile__edit-icon"/>
@@ -53,12 +64,12 @@ export default function Main () {
           </div>
           <div className="profile__info">
             <div className="profile__name-and-button">
-              <h2 className="profile__name" id="profile__name"></h2>
+              <h2 className="profile__name" id="profile__name">{currentUser?.name || " "}</h2>
               <button className="profile__edit-button" type="button" onClick={() => handleOpenPopup(editProfilePopup)}>
                 <img src={vector} alt="edit icon" className="profile__edit-icon"/>
               </button>
             </div>
-            <p className="profile__profession" id="profile__profession"></p>
+            <p className="profile__profession" id="profile__profession">{currentUser?.about || " "}</p>
           </div>
           <div className="profile__add">
             <button className="profile__add-button" type="button" onClick = {() => handleOpenPopup(newCardPopup)}>+</button>
