@@ -63,7 +63,13 @@ export default function Main () {
     await api.toggleLike(card._id, !isLiked).then((newCard) => {
         setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
     }).catch((error) => console.error(error));
-}
+  }
+
+  async function handleCardDelete(card) {
+    await api.deleteCard(card._id).then(() => {
+        setCards((state) => state.filter((currentCard) => currentCard._id !== card._id));
+    }).catch((error) => console.error(error));
+  }
 
 /*---------------- Render ----------------*/
     return (
@@ -92,7 +98,7 @@ export default function Main () {
         </section>
         <ul className="elements">
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={handleCardClick} onCardLike={handleCardLike}/>
+            <Card key={card._id} card={card} onCardClick={handleCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
           ))}
         </ul>
         
