@@ -14,9 +14,11 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function Main () {
   
+  /*---------------- Context ----------------*/
+
   const currentUser = useContext(CurrentUserContext);
 
-  /*---------------- Variables de estado ----------------*/
+  /*---------------- State variables ----------------*/
   const [popup, setPopup] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -31,10 +33,14 @@ export default function Main () {
     .catch((err) => console.log(err));
   }, []);
 
+  /*---------------- State Popups ----------------*/
+
   const newCardPopup = { title: "Nuevo lugar", children:  <NewCard />};
   const editProfilePopup = { title: "Editar perfil", children: <EditProfile /> };
   const editAvatarPopup = { title: "Editar avatar", children: <EditAvatar /> };
   
+  /*---------------- Handlers ----------------*/
+
   function handleOpenPopup(popup) {
     setPopup(popup);
   }
@@ -51,6 +57,15 @@ export default function Main () {
     setSelectedCard(null);
   }
 
+  async function handleCardLike(card) {
+    const isLiked = card.isLiked;
+    
+    await api.toggleLike(card._id, !isLiked).then((newCard) => {
+        setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
+    }).catch((error) => console.error(error));
+}
+
+/*---------------- Render ----------------*/
     return (
         <main className="content">
         <section className="profile">
@@ -77,7 +92,7 @@ export default function Main () {
         </section>
         <ul className="elements">
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={handleCardClick} />
+            <Card key={card._id} card={card} onCardClick={handleCardClick} onCardLike={handleCardLike}/>
           ))}
         </ul>
         
