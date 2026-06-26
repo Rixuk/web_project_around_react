@@ -12,14 +12,13 @@ import { useState, useEffect, useContext} from "react";
 
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-export default function Main () {
+export default function Main ({ onOpenPopup, onClosePopup, popup }) {
   
   /*---------------- Context ----------------*/
 
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser, handleUpdateUser } = useContext(CurrentUserContext);
 
   /*---------------- State variables ----------------*/
-  const [popup, setPopup] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
 
   const [cards, setCards] = useState([]);
@@ -41,14 +40,6 @@ export default function Main () {
   
   /*---------------- Handlers ----------------*/
 
-  function handleOpenPopup(popup) {
-    setPopup(popup);
-  }
-
-  function handleClosePopup() {
-    setPopup(null);
-  }
-
   function handleCardClick(card) {
     setSelectedCard(card);
   }
@@ -57,6 +48,8 @@ export default function Main () {
     setSelectedCard(null);
   }
 
+
+  /*----------------- PREGUNTAR SOBRE ESTOS ASYNCRONOS -----------------*/
   async function handleCardLike(card) {
     const isLiked = card.isLiked;
     
@@ -86,14 +79,14 @@ export default function Main () {
           <div className="profile__info">
             <div className="profile__name-and-button">
               <h2 className="profile__name" id="profile__name">{currentUser?.name || " "}</h2>
-              <button className="profile__edit-button" type="button" onClick={() => handleOpenPopup(editProfilePopup)}>
+              <button className="profile__edit-button" type="button" onClick={() => onOpenPopup(editProfilePopup)}>
                 <img src={vector} alt="edit icon" className="profile__edit-icon"/>
               </button>
             </div>
             <p className="profile__profession" id="profile__profession">{currentUser?.about || " "}</p>
           </div>
           <div className="profile__add">
-            <button className="profile__add-button" type="button" onClick = {() => handleOpenPopup(newCardPopup)}>+</button>
+            <button className="profile__add-button" type="button" onClick = {() => onOpenPopup(newCardPopup)}>+</button>
           </div>
         </section>
         <ul className="elements">
@@ -103,13 +96,13 @@ export default function Main () {
         </ul>
         
         {popup && (
-          <Popup onClose={handleClosePopup} title={popup.title}>
+          <Popup onClose={onClosePopup} title={popup.title}>
             {popup.children}
           </Popup>
         )}
 
         {selectedCard && (
-          <ImagePopup onClose={handleCloseImagePopup} card={selectedCard} />
+          <ImagePopup onClose={onClosePopup} card={selectedCard} />
         )}
       </main>
     );
