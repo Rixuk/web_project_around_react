@@ -12,7 +12,7 @@ function App() {
   const [popup, setPopup] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
-/*----------------- Efectos ----------------*/
+/*----------------- Establece el usuario actual ----------------*/
 useEffect(() => {
   api.getData()
   .then((userData) => {
@@ -34,11 +34,13 @@ useEffect(() => {
 /*----------------- TAMBIÉN PREGUNTAR SOBRE ESTOS ASYNCRONOS -----------------*/
 const handleUpdateUser = (data) => {
   (async () => {
-    await api.patchUserInfo(data)
-    .then((newData) => {
-      setCurrentUser(newData);
-      handleClosePopup();
-    }).catch((err) => console.log(err));
+    try{
+      const newData = await api.patchUserInfo(data)
+        setCurrentUser(newData);
+        handleClosePopup();
+    } catch (error) {
+      console.error(error);
+    }
   })();
 };
 
