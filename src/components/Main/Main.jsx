@@ -77,7 +77,7 @@ export default function Main ({ onOpenPopup, onClosePopup, popup }) {
           <div className="profile__picture">
             <img src={currentUser?.avatar || " "} alt="avatar image" className="profile__avatar"/>
             <div className="profile__edit-icon-container">
-              <button className="profile__edit-button" type="button" onClick={() => handleOpenPopup(editAvatarPopup)}>
+              <button className="profile__edit-button" type="button" onClick={() => onOpenPopup(editAvatarPopup)}>
                 <img src={vector} alt="edit icon" className="profile__edit-icon"/>
               </button>
             </div>

@@ -31,7 +31,7 @@ useEffect(() => {
     setPopup(null);
   }
 
-/*----------------- TAMBIÉN PREGUNTAR SOBRE ESTOS ASYNCRONOS -----------------*/
+/*----------------- ASYNC -----------------*/
 const handleUpdateUser = (data) => {
   (async () => {
     try{
@@ -44,11 +44,23 @@ const handleUpdateUser = (data) => {
   })();
 };
 
+const handleUpdateAvatar = (data) => {
+  (async () => {
+    try{
+      const newAvatar = await api.patchUserAvatar(data)
+      setCurrentUser(newAvatar);
+      handleClosePopup();
+    } catch (error) {
+      console.error(error);
+    }
+  })();
+};
+
 /*----------------- Render ----------------*/
 
   return (
 <>
-    <CurrentUserContext.Provider value={{currentUser, handleUpdateUser}}>
+    <CurrentUserContext.Provider value={{currentUser, handleUpdateUser, handleUpdateAvatar}}>
       <div className="page">
           <Header />
           <Main onOpenPopup={handleOpenPopup} onClosePopup={handleClosePopup} popup={popup} />
