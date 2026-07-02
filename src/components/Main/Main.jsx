@@ -12,33 +12,23 @@ import { useState, useEffect, useContext} from "react";
 
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-export default function Main ({ onOpenPopup, onClosePopup, popup }) {
+export default function Main ({ onOpenPopup, onClosePopup, popup, cards, onDeleteCards, onCardLike, onAddPlaceSubmit }) {
   
   /*---------------- Context ----------------*/
 
   const { currentUser, handleUpdateUser } = useContext(CurrentUserContext);
 
   /*---------------- State variables ----------------*/
+
   const [selectedCard, setSelectedCard] = useState(null);
-
-  const [cards, setCards] = useState([]);
-
-  /*---------------- Efectos ----------------*/
-  useEffect(() => {
-    api.getInitialCards()
-    .then((cardsData) => {
-      setCards(cardsData);
-    })
-    .catch((err) => console.log(err));
-  }, []);
 
   /*---------------- State Popups ----------------*/
 
-  const newCardPopup = { title: "Nuevo lugar", children:  <NewCard />};
+  const newCardPopup = { title: "Nuevo lugar", children:  <NewCard onAddPlaceSubmit={onAddPlaceSubmit} />};
   const editProfilePopup = { title: "Editar perfil", children: <EditProfile /> };
   const editAvatarPopup = { title: "Editar avatar", children: <EditAvatar /> };
-  
-  /*---------------- Handlers ----------------*/
+
+  /*----------------- HANDLERS -----------------*/
 
   function handleCardClick(card) {
     setSelectedCard(card);
@@ -46,28 +36,6 @@ export default function Main ({ onOpenPopup, onClosePopup, popup }) {
 
   function handleCloseImagePopup() {
     setSelectedCard(null);
-  }
-
-
-  /*----------------- PREGUNTAR SOBRE ESTOS ASYNCRONOS -----------------*/
-  async function handleCardLike(card) {
-    const isLiked = card.isLiked;
-    
-    try {
-    const newCard = await api.toggleLike(card._id, !isLiked)
-    setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
-    } catch(error) {
-      console.error(error);
-    }
-  }
-
-  async function handleCardDelete(card) {
-    try {
-      await api.deleteCard(card._id);
-      setCards((state) => state.filter((currentCard) => currentCard._id !== card._id));
-    } catch(error) {
-      console.error(error);
-    }
   }
 
 /*---------------- Render ----------------*/
@@ -97,7 +65,7 @@ export default function Main ({ onOpenPopup, onClosePopup, popup }) {
         </section>
         <ul className="elements">
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={handleCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
+            <Card key={card._id} card={card} onCardClick={handleCardClick} onCardLike={onCardLike} onCardDelete={onDeleteCards} />
           ))}
         </ul>
         
@@ -108,7 +76,7 @@ export default function Main ({ onOpenPopup, onClosePopup, popup }) {
         )}
 
         {selectedCard && (
-          <ImagePopup onClose={onClosePopup} card={selectedCard} />
+          <ImagePopup onClose={handleCloseImagePopup} card={selectedCard} />
         )}
       </main>
     );

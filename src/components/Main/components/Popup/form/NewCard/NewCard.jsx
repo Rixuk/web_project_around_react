@@ -1,6 +1,15 @@
-export default function NewCard(){
+export default function NewCard({ onAddPlaceSubmit }){
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newName = e.target.name.value;
+    const newLink = e.target.link.value;
+    const data = { name: newName, link: newLink };
+    onAddPlaceSubmit(data);
+  }
+
     return(
-            <form className="popup__form" noValidate>
+            <form className="popup__form" noValidate onSubmit={handleSubmit}>
                 <fieldset className="popup__fieldset">
                   <input
                     type="text"

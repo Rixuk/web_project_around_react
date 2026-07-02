@@ -11,8 +11,17 @@ function App() {
   /*----------------- Variables de estado ----------------*/
   const [popup, setPopup] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+  const [cards, setCards] = useState([]);
 
-/*----------------- Establece el usuario actual ----------------*/
+/*----------------- Establece las tarjetas y el usuario actual ----------------*/
+useEffect(() => {
+  api.getInitialCards()
+  .then((cardsData) => {
+    setCards(cardsData);
+  })
+  .catch((err) => console.log(err));
+}, []);
+
 useEffect(() => {
   api.getData()
   .then((userData) => {
@@ -20,6 +29,8 @@ useEffect(() => {
   })
   .catch((err) => console.log(err));
 }, [])
+
+
 
 /*----------------- Handlers ----------------*/
 
@@ -31,7 +42,39 @@ useEffect(() => {
     setPopup(null);
   }
 
-/*----------------- ASYNC -----------------*/
+  async function handleCardLike(card) {
+
+    const isLiked = card.isLiked;
+    
+    try {
+    const newCard = await api.toggleLike(card._id, !isLiked)
+    setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
+    } catch(error) {
+      console.error(error);
+    }
+  }
+
+  async function handleCardDelete(card) {
+    try {
+      await api.deleteCard(card._id);
+      setCards((state) => state.filter((currentCard) => currentCard._id !== card._id));
+    } catch(error) {
+      console.error(error);
+    }
+  }
+
+  async function handleAddPlaceSubmit(data) {
+
+    try {
+      const newCard = await api.newCard(data);
+      setCards((cards) => [newCard, ...cards]);
+      handleClosePopup();
+    } catch(error) {
+      console.error(error);
+    }
+
+  }
+
 const handleUpdateUser = (data) => {
   (async () => {
     try{
@@ -63,7 +106,7 @@ const handleUpdateAvatar = (data) => {
     <CurrentUserContext.Provider value={{currentUser, handleUpdateUser, handleUpdateAvatar}}>
       <div className="page">
           <Header />
-          <Main onOpenPopup={handleOpenPopup} onClosePopup={handleClosePopup} popup={popup} />
+          <Main onOpenPopup={handleOpenPopup} onClosePopup={handleClosePopup} popup={popup} cards = {cards} onDeleteCards = {handleCardDelete} onCardLike = {handleCardLike} onAddPlaceSubmit = {handleAddPlaceSubmit} />
           <Footer />
       </div>
     </CurrentUserContext.Provider>
