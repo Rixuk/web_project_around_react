@@ -9,14 +9,29 @@ export default function EditProfile(){
 
     const [name, setName] = useState(currentUser.name);
     const [description, setDescription] = useState(currentUser.about);
+    const [aboutError, setAboutError] = useState("");
+    const [nameError, setNameError] = useState("");
+
+    /*---------------- Validation ----------------*/
+
 
     /*---------------- Handlers ----------------*/
     function handleNameChange(e){
         setName(e.target.value);
+        if (name.length < 2 || name.length > 40) {
+            setNameError("El nombre debe tener entre 2 y 40 caracteres");
+        } else{
+            setNameError("");
+        }
     }
 
     function handleDescriptionChange(e){
         setDescription(e.target.value);
+        if (description.length < 2 || description.length > 200) {
+            setAboutError("La descripción debe tener entre 2 y 200 caracteres");
+        } else{
+            setAboutError("");
+        }
     }
 
     function handleSubmit(e){
@@ -39,10 +54,7 @@ export default function EditProfile(){
                     value={name}
                     onChange={handleNameChange}
                 />
-                <span
-                    className="form__inputs-error_active"
-                    id="popup__name-error"
-                ></span>
+                {nameError && <span className="form__inputs-error_active" id="popup__name-error">{nameError}</span>}
                 <input
                     type="text"
                     name="about"
@@ -55,11 +67,8 @@ export default function EditProfile(){
                     value={description}
                     onChange={handleDescriptionChange}
                 />
-                <span
-                    className="form__inputs-error_active"
-                    id="popup__job-error"
-                ></span>
-                <button type="submit" className="popup__save popup__style">
+                {aboutError && <span className="form__inputs-error_active" id="popup__job-error">{aboutError}</span>}
+                <button type="submit" className={`popup__save ${nameError || aboutError ? 'popup__save_disabled' : ''}`} disabled={nameError || aboutError}>
                     Guardar
                 </button>
             </fieldset>

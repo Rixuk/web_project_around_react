@@ -3,6 +3,7 @@ import Popup from "./components/Popup/Popup";
 import NewCard from "./components/Popup/form/NewCard/NewCard";
 import EditProfile from "./components/Popup/form/EditProfile/EditProfile";
 import EditAvatar from "./components/Popup/form/EditAvatar/EditAvatar";
+import RemoveCard from "./components/Popup/form/RemoveCard/RemoveCard";
 import Card from "./components/Card/Card";
 import ImagePopup from "./components/Card/ImagePopup/ImagePopup";
 

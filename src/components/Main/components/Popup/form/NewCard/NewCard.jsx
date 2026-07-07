@@ -1,9 +1,41 @@
-export default function NewCard({ onAddPlaceSubmit }){
+import { useState } from "react";
 
+export default function NewCard({ onAddPlaceSubmit }){
+  const [newName, setNewName] = useState("");
+  const [newLink, setNewLink] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [linkError, setLinkError] = useState("");
+
+  /*---------------- Validation ----------------*/
+
+  function esURL(cadena) {
+    try {
+        new URL(cadena);
+        return true;
+    } catch (error) {
+        return false;
+    }
+    }
+
+  /*---------------- Handlers ----------------*/
+  const handleNameChange = (e) => {
+    setNewName(e.target.value);
+    if (newName.length < 2 || newName.length > 30) {
+      setNameError("El nombre debe tener entre 2 y 30 caracteres");
+    }else{
+      setNameError("");
+    }
+  }
+  const handleLinkChange = (e) => {
+    setNewLink(e.target.value);
+    if (!esURL(e.target.value)) {
+      setLinkError("El enlace no es válido");
+    } else {
+      setLinkError("");
+    }
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newName = e.target.name.value;
-    const newLink = e.target.link.value;
     const data = { name: newName, link: newLink };
     onAddPlaceSubmit(data);
   }
@@ -14,6 +46,8 @@ export default function NewCard({ onAddPlaceSubmit }){
                   <input
                     type="text"
                     name="name"
+                    value={newName}
+                    onChange={handleNameChange}
                     placeholder="Título"
                     className="popup__name popup__style form__inputs"
                     id="new-cards__name"
@@ -21,23 +55,33 @@ export default function NewCard({ onAddPlaceSubmit }){
                     minLength="2"
                     maxLength="30"
                   />
-                  <span
-                    className="form__inputs-error_active"
-                    id="new-cards__name-error"
-                  ></span>
+                  {nameError && (
+                    <span
+                      className="form__inputs-error_active"
+                      id="new-cards__name-error"
+                    >
+                      {nameError}
+                    </span>
+                  )}
                   <input
                     type="url"
                     name="link"
+                    value={newLink}
+                    onChange={handleLinkChange}
                     placeholder="Enlace a la imagen"
                     className="popup__aboutme popup__style form__inputs"
                     id="new-cards__link"
                     required
                   />
-                  <span
-                    className="form__inputs-error_active"
-                    id="new-cards__link-error"
-                  ></span>
-                  <button type="submit" className="popup__save popup__style">
+                  {linkError && (
+                    <span
+                      className="form__inputs-error_active"
+                      id="new-cards__link-error"
+                    >
+                      {linkError}
+                    </span>
+                  )}
+                  <button type="submit" className={`popup__save ${nameError || linkError ? 'popup__save_disabled' : ''}`} disabled={nameError || linkError}>
                     Crear
                   </button>
                 </fieldset>
