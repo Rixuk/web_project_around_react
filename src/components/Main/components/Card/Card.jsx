@@ -5,11 +5,8 @@ export default function Card(props){
     const {onCardClick} = props;
     const {onCardLike} = props;
     const {onDeletePopup} = props;
-    const {onRemove} = props;
 
-    const cardLikeButtonClassName = `elements__like ${
-isLiked ? 'elements__like-enabled' : ''
-}`;
+    const cardLikeButtonClassName = "elements__like" + (isLiked ? " elements__like-enabled" : "");
 
     return(
         <li className="elements__card">
@@ -19,7 +16,7 @@ isLiked ? 'elements__like-enabled' : ''
                 alt={name}
                 onClick={() => onCardClick(props.card)}
             />
-            <img className="elements__trash" src={thrashIcon} alt="" onClick={() => onDeletePopup(onRemove)} />
+            <img className="elements__trash" src={thrashIcon} alt="" onClick={() => onDeletePopup(props.card)} />
             <div className="elements__info">
                 <h2 className="elements__location">{name}</h2>
                 <button className={cardLikeButtonClassName} aria-label="Like" type="button" onClick={() => onCardLike(props.card)}></button>

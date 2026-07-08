@@ -1,10 +1,15 @@
 import {useState} from "react";
 
 export default function RemoveCard(props){
-    const {onDelete} = props;
-    const handleSubmit = (e) =>{
+    const {onDelete, onClose} = props;
+    const handleSubmit = async (e) =>{
         e.preventDefault();
-        onDelete();
+        if (onDelete) {
+            await onDelete();
+        }
+        if (onClose) {
+            onClose();
+        }
     } 
 
     return(
