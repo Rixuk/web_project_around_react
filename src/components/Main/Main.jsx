@@ -28,6 +28,7 @@ export default function Main ({ onOpenPopup, onClosePopup, popup, cards, onDelet
   const newCardPopup = { title: "Nuevo lugar", children:  <NewCard onAddPlaceSubmit={onAddPlaceSubmit} />};
   const editProfilePopup = { title: "Editar perfil", children: <EditProfile /> };
   const editAvatarPopup = { title: "Editar avatar", children: <EditAvatar /> };
+  const removeCardPopup = { title: "¿Estás seguro/a?", children: <RemoveCard onDelete={onDeleteCards}/> };
 
   /*----------------- HANDLERS -----------------*/
 
@@ -66,7 +67,7 @@ export default function Main ({ onOpenPopup, onClosePopup, popup, cards, onDelet
         </section>
         <ul className="elements">
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={handleCardClick} onCardLike={onCardLike} onCardDelete={onDeleteCards} />
+            <Card key={card._id} card={card} onCardClick={handleCardClick} onCardLike={onCardLike} onDeletePopup={onOpenPopup} onRemove={onDeleteCards}/>
           ))}
         </ul>
         
