@@ -1,12 +1,11 @@
-import { useContext, useRef, useState } from "react"
+import { useContext, useState } from "react"
 import { CurrentUserContext } from "../../../../../../contexts/CurrentUserContext"
 
 export default function EditAvatar(){
 
     const { currentUser, handleUpdateAvatar } = useContext(CurrentUserContext);
+    const [avatar, setAvatar] = useState("");
     const [avatarError, setAvatarError] = useState("");
-
-    const avatarRef = useRef();
 
     function esURL(cadena) {
     try {
@@ -17,23 +16,25 @@ export default function EditAvatar(){
     }
     }
 
-    function handleUrl(e){
-        if (!esURL(e.target.value)) {
-            setAvatarError("El enlace no es válido");
+    const handleAvatarChange = (e) =>{
+        const avatarValue = e.target.value;
+        setAvatar(avatarValue);
+        if (!esURL(avatarValue)) {
+            setAvatarError("Por favor, introduce una URL válida");
         } else {
             setAvatarError("");
         }
     }
 
-    function handleSubmit(e){
+    const handleSubmit = (e) => {
         e.preventDefault();
-        handleUpdateAvatar({ avatarLink: avatarRef.current.value });
-    }
+        handleUpdateAvatar({avatarLink: avatar});
+    };
 
     return(
         <form className="popup__form" noValidate onSubmit = {handleSubmit}>
             <fieldset className="popup__fieldset">
-                <input ref={avatarRef} type="url" name="avatar" placeholder="Enlace a la imagen" className="popup__avatar popup__style form__inputs" id="edit-avatar__link" required onChange={handleUrl}/>
+                <input type="url" name="avatar" placeholder="Enlace a la imagen" className="popup__avatar popup__style form__inputs" id="edit-avatar__link" required value={avatar} onChange={handleAvatarChange}/>
                     {avatarError && (
                         <span
                             className="form__inputs-error_active"
@@ -42,7 +43,7 @@ export default function EditAvatar(){
                             {avatarError}
                         </span>
                     )}
-                <button type="submit"className={`popup__save ${avatarError ? 'popup__save_disabled' : ''}`} disabled={!!avatarError}>
+                <button type="submit" className={`popup__save ${avatarError || !avatar ? 'popup__save_disabled' : ''}`} disabled={avatarError || !avatar}>
                     Guardar
                 </button>
             </fieldset>

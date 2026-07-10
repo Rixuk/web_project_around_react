@@ -19,16 +19,18 @@ export default function NewCard({ onAddPlaceSubmit }){
 
   /*---------------- Handlers ----------------*/
   const handleNameChange = (e) => {
-    setNewName(e.target.value);
-    if (newName.length < 2 || newName.length > 30) {
+    const nameValue = e.target.value;
+    setNewName(nameValue);
+    if (nameValue.length < 2 || nameValue.length > 30) {
       setNameError("El nombre debe tener entre 2 y 30 caracteres");
     }else{
       setNameError("");
     }
   }
   const handleLinkChange = (e) => {
-    setNewLink(e.target.value);
-    if (!esURL(e.target.value)) {
+    const linkValue = e.target.value;
+    setNewLink(linkValue);
+    if (!esURL(linkValue)) {
       setLinkError("El enlace no es válido");
     } else {
       setLinkError("");
@@ -81,7 +83,7 @@ export default function NewCard({ onAddPlaceSubmit }){
                       {linkError}
                     </span>
                   )}
-                  <button type="submit" className={`popup__save ${nameError || linkError ? 'popup__save_disabled' : ''}`} disabled={nameError || linkError}>
+                  <button type="submit" className={`popup__save ${nameError || linkError || !newName || !newLink ? 'popup__save_disabled' : ''}`} disabled={nameError || linkError || !newName || !newLink}>
                     Crear
                   </button>
                 </fieldset>

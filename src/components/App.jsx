@@ -10,7 +10,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 function App() {
   /*----------------- Variables de estado ----------------*/
   const [popup, setPopup] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
 
 /*----------------- Establece las tarjetas y el usuario actual ----------------*/
