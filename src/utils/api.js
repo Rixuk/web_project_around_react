@@ -18,8 +18,7 @@ class Api {
         authorization: this.token,
       },
     })
-      .then(this._checkResponse)
-      .catch(this._checkError);
+      .then(this._checkResponse)  
   }
   getData() {
     return this._fetchGet("/users/me");
@@ -39,7 +38,6 @@ class Api {
         about: newAbout
       })
     }).then(this._checkResponse)
-    .catch(this._checkError); 
   }
   patchUserAvatar({ avatarLink }) {
     return fetch(this.url + "/users/me/avatar", {
@@ -51,8 +49,7 @@ class Api {
       body: JSON.stringify({
         avatar: avatarLink
       })
-    }).then(this._checkResponse)
-    .catch(this._checkError); 
+    }).then(this._checkResponse)  
   }
   newCard({ name, link }) {
     return fetch(this.url + "/cards", {
@@ -66,7 +63,6 @@ class Api {
         link: link
       })
     }).then(this._checkResponse)
-    .catch(this._checkError); 
   }
   deleteCard(cardId){
     return fetch(this.url + "/cards/" + cardId,{
@@ -76,7 +72,7 @@ class Api {
         "Content-Type": "application/json"
       }
     }).then(this._checkResponse)
-    .catch(this._checkError); 
+     
   }
   toggleLike(cardId, isLiked){
     return fetch(this.url + "/cards/" + cardId + "/likes",{
@@ -86,7 +82,6 @@ class Api {
         "Content-Type": "application/json"
       }
     }).then(this._checkResponse)
-    .catch(this._checkError);
   }
 }
 
